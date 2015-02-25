@@ -10,17 +10,18 @@ class DMSClientAdapterTest extends \PHPUnit_Framework_TestCase
     /**@var \DMS\Service\Meetup\MeetupKeyAuthClient */
     private $dmsClient;
 
-    /**@var array */
+    /**@var \HrPhpTest\Fixtures\MeetupApiResponseFixture */
     private $meetupApiResponse;
 
     public function testGetEvents()
     {
+        $response = $this->meetupApiResponse;
         $this->dmsClient->expects($this->once())
-            ->method('getCommand')
-            ->with('GetEvents')
-            ->will($this->returnValue($this->meetupApiResponse));
+            ->method('__call')
+            ->with($this->anything())
+            ->will($this->returnValue($response));
         $adapter = new DMSClientAdapter($this->dmsClient);
-        $events = $adapter->getEvents();
+        $events = $adapter->getEvents(['foo' => 'bar']);
         $this->assertEquals('NYC Technologists', $events->results[0]->group->who);
     }
 
@@ -28,20 +29,19 @@ class DMSClientAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $response = 'This is not json';
         $this->dmsClient->expects($this->once())
-            ->method('getCommand')
-            ->with('GetEvents')
+            ->method('__call')
+            ->with($this->anything())
             ->will($this->returnValue($response));
         $adapter = new DMSClientAdapter($this->dmsClient);
         $this->setExpectedException('HrPhp\Exception\HrPhpException');
-        $adapter->getEvents();
+        $adapter->getEvents(['test']);
     }
 
     protected function setUp()
     {
         $this->dmsClient = $this->getMockBuilder('\DMS\Service\Meetup\MeetupKeyAuthClient')
             ->disableOriginalConstructor()
-            ->getMock(array('getCommand'));
-        $fixture = new MeetupApiResponseFixture();
-        $this->meetupApiResponse = $fixture->getMockUserFeedResponse();
+            ->getMock(array('__call'));
+        $this->meetupApiResponse = new MeetupApiResponseFixture();
     }
 }

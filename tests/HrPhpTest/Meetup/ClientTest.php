@@ -17,16 +17,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($className, $this->client->getAdapter());
     }
 
-    public function testGetTimeline()
+    public function testGetEvents()
     {
         $expectedValue = ['foo' => 'bar'];
         $className = '\HrPhp\Meetup\Adapter\AdapterInterface';
         $adapter = $this->getMockForAbstractClass($className);
         $adapter->expects($this->once())
             ->method('getEvents')
+            ->with(['test'])
             ->will($this->returnValue($expectedValue));
         $this->client->setAdapter($adapter);
-        $this->assertSame($expectedValue, $this->client->getEvents());
+        $this->assertSame($expectedValue, $this->client->getEvents(['test']));
     }
 
     protected function setUp()

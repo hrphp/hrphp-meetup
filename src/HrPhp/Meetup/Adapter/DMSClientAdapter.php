@@ -22,10 +22,14 @@ class DMSClientAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function getEvents()
+    public function getEvents(array $options)
     {
         try {
-            $events = $this->getClient()->getCommand('GetEvents');
+            $response = $this->getClient()->getEvents($options);
+            if (!method_exists($response, 'getBody')) {
+                throw new \ErrorException('Could not connect to the Meetup API.');
+            }
+            $events = $response->getBody(true);
             return Json::decode($events, Json::TYPE_OBJECT);
         } catch (\Exception $ex) {
             throw new HrPhpException('Could not retrieve meetup events');

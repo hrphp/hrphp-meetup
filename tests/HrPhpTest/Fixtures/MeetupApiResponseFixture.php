@@ -4,7 +4,7 @@ namespace HrPhpTest\Fixtures;
 
 class MeetupApiResponseFixture
 {
-    public function getMockUserFeedResponse()
+    public function getBody()
     {
         return '{
    "results":[  

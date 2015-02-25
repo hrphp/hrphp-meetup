@@ -10,11 +10,12 @@ class Client
     private $adapter;
 
     /**
+     * @param array $options
      * @return array
      */
-    public function getEvents()
+    public function getEvents(array $options)
     {
-        return $this->getAdapter()->getEvents();
+        return $this->getAdapter()->getEvents($options);
     }
 
     /**
