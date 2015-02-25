@@ -1,0 +1,30 @@
+{
+  "name": "hrphp/hrphp-meetup",
+  "description": "A Meetup.com Module for ZF2",
+  "license": "MIT",
+  "keywords": [
+      "framework",
+      "zf2",
+      "meetup"
+  ],
+  "autoload": {
+      "psr-0": {
+          "HrPhp\\": "src/"
+      }
+  },
+  "autoload-dev": {
+    "psr-0": {
+      "HrPhpTest\\": "tests/"
+    }
+  },
+  "require": {
+      "php": ">=5.4",
+      "zendframework/zendframework": "~2.0",
+      "dms/meetup-api-client": "*"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "~1.5",
+    "phpunit/phpunit": "~4.0",
+    "phing/phing": "~2.0"
+  }
+}
