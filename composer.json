@@ -1,6 +1,6 @@
 {
   "name": "hrphp/hrphp-meetup",
-  "description": "A Meetup.com Module for ZF2",
+  "description": "A ZF2 module for communicating with the Meetup.com API.",
   "license": "MIT",
   "keywords": [
       "framework",
